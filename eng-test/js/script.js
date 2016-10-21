@@ -135,7 +135,6 @@ function game_over(){
 	$("<form>").addClass("form-inline").appendTo(".game_over");
 
 	$("<button>").addClass("btn btn-success button_restart").text("Try again").appendTo(".form-inline");
-	$("<h3>").text("For new input text reload the page.").appendTo(".form-inline");
 
 
 }
