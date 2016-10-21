@@ -24,7 +24,7 @@ function makeArray(text){
 				var dash = i+1;
 				var j = i+1;
 				while (j != text.length){
-					if (text[j] == ';' || text[j] == ','){
+					if (text[j] == ';'){
 						var translation = $.trim(text.substring(dash,j).toLowerCase());
 						console.log("translation="+translation);
 					//	task.translation = translation;
