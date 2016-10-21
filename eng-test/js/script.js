@@ -126,10 +126,12 @@ function game_over(){
 	$(".test").hide();
 	$(".game_over").show();
 	$("<h1>").text(right+" correct answers out of "+task_array.length+".").appendTo(".game_over");
+	if (wrong.length != 0){
 	$("<h2>").text("Wrong answers:").appendTo(".game_over");
 	for (var i = 0; i < wrong.length; i++) {
 		$("<h4>").text(wrong[i].word+" - "+wrong[i].translation).appendTo(".game_over");
 	}
+}
 	$("<form>").addClass("form-inline").appendTo(".game_over");
 
 	$("<button>").addClass("btn btn-success button_restart").text("Try again").appendTo(".form-inline");
