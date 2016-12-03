@@ -39,23 +39,27 @@ function makeArray(text){
 			} else continue;
 		} 
 	}
-	return arr;
+	return shuffleArray(arr);
 	
 }
-
+function shuffleArray(arr){
+	for (var i = arr.length-1; i >= 1; i--) {
+		var j = Math.round( Math.random() * arr.length-1 );
+		var temp = arr[j];
+		arr[j]=arr[i];
+		arr[i]=temp;
+	}
+	return arr;
+}
+var i = 0;
 var right = 0;
 var wrong = [];
 var task_array;
-var main = function () {
-	var i = 0;
-	//$(".button_restart").prop("disabled",false);
-	
-	var split;
-	var current_progress = 0;
+var split;
+var current_progress = 0;
 
-	
-	$(".button_start").click(function(){
-		task_array = makeArray($("textarea.main_input").val());
+function start(){
+	    task_array = makeArray($("textarea.main_input").val());
 		if (task_array.length != 0){
 		$(".progress").show();
 		split = 100 / task_array.length;
@@ -63,14 +67,10 @@ var main = function () {
 		$(".two").hide(); //убираем поле ввода
 		$(".test").show(); //показываем окно тестирования
 		$(".word").text(task_array[i].translation);
-	} else alert("You put something wrong!")
-	});
-
-
-
-	
-	$(".button_next").click(function(){
-		i++;
+	} else alert("You put something wrong!");
+}
+function next(){
+	i++;
 		current_progress=current_progress+split;
 		$(".progress-bar").css("width",current_progress+"%");
 		if (i != task_array.length){
@@ -85,11 +85,9 @@ var main = function () {
 			game_over();
 
 		}
-	});
-	
-	$(".button_submit").click(function(){
-
-		$(".answer_form").attr("disabled",true);
+}
+function submit(){
+	$(".answer_form").attr("disabled",true);
 		var answer = $(".answer_form").val();
 		if ($.trim(answer)==task_array[i].word){
 			set_color_green();
@@ -103,7 +101,40 @@ var main = function () {
 			$(".answer").text(task_array[i].word+" - "+task_array[i].translation);
 			wrong.push(task_array[i]);
 		}
+}
+var main = function () {
+	
+	//$(".button_restart").prop("disabled",false);
+	
+	
+
+	
+	$(".button_start").click(function(){
+		start()
+	
 	});
+
+
+
+	
+	$(".button_next").click(function(){
+		next()
+	});
+	
+	$(".button_submit").click(function(){
+
+		submit();
+	});
+	$(document).keyup(function(e){
+
+		if (e.which==13){
+			if ($(".next").attr("disabled")){
+				submit();
+			} else {
+				next();
+			}
+	}
+	})
 	$(".button_restart").click(function(){
 		new main;
 	});
